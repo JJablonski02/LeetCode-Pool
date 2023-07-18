@@ -42,6 +42,37 @@ namespace LeetCode
                 return new int[] { };
             }
         }
+
+        /*Given an integer x, return true if x is a
+        palindrome, and false otherwise.*/
+
+        ///SOLUTION///
+        
+        public class Solution2
+        {
+            public bool IsPalindrome (int x)
+            {
+                var y = x.ToString().ToCharArray();
+                Array.Reverse(y);
+                return x.ToString() == new string(y);
+            }
+        }
+
+        //Without converting to string
+        public class Soluton3
+        {
+            public bool IsPalindrome (int x)
+            {
+                int y = 0, z = x;
+                while(z > 0)
+                {
+                    y = y * 10 + z % 10;
+                    z /= 10;
+                }
+                return y == x;
+            }
+        }
+
     }
 }
 
