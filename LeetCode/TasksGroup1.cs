@@ -47,10 +47,10 @@ namespace LeetCode
         palindrome, and false otherwise.*/
 
         ///SOLUTION///
-        
+
         public class Solution2
         {
-            public bool IsPalindrome (int x)
+            public bool IsPalindrome(int x)
             {
                 var y = x.ToString().ToCharArray();
                 Array.Reverse(y);
@@ -59,12 +59,12 @@ namespace LeetCode
         }
 
         //Without converting to string
-        public class Soluton3
+        public class Solution3
         {
-            public bool IsPalindrome (int x)
+            public bool IsPalindrome(int x)
             {
                 int y = 0, z = x;
-                while(z > 0)
+                while (z > 0)
                 {
                     y = y * 10 + z % 10;
                     z /= 10;
@@ -72,7 +72,84 @@ namespace LeetCode
                 return y == x;
             }
         }
+        /*Roman numerals are represented by seven different symbols: I, V, X, L, C, D and M.
 
+            Symbol       Value
+            I             1
+            V             5
+            X             10
+            L             50
+            C             100
+            D             500
+            M             1000
+
+            For example, 2 is written as II in Roman numeral, just two ones added together. 12 is written as XII, which is simply X + II. The number 27 is written as XXVII, which is XX + V + II.
+
+            Roman numerals are usually written largest to smallest from left to right. However, the numeral for four is not IIII. Instead, the number four is written as IV. Because the one is before the five we subtract it making four. The same principle applies to the number nine, which is written as IX. There are six instances where subtraction is used:
+
+                I can be placed before V (5) and X (10) to make 4 and 9. 
+                X can be placed before L (50) and C (100) to make 40 and 90. 
+                C can be placed before D (500) and M (1000) to make 400 and 900.
+
+            Given a roman numeral, convert it to an integer.
+            */
+
+        public class Solution4
+        {
+
+            static Dictionary<char, int> romanDigits = new()
+            {
+                {'I', 1},
+                {'V', 5},
+                {'X', 10},
+                {'L', 50},
+                {'C', 100},
+                {'D', 500},
+                {'M', 1000}
+            };
+
+            public int RomanToInt(string s)
+            {
+                var result = 0;
+                for (int i = 0; i < s.Length - 1; i++)
+                {
+                    if (romanDigits[s[i]] < romanDigits[s[i + 1]])
+                        result -= romanDigits[s[i]];
+                    else
+                        result += romanDigits[s[i]];
+                }
+
+                return result + romanDigits[s[s.Length - 1]];
+            }
+        }
+
+        /*Given two strings ransomNote and magazine, return true if ransomNote can be constructed by using the letters from magazine and false otherwise.
+
+        Each letter in magazine can only be used once in ransomNote.*/
+
+        public class Solution5
+        {
+            public bool CanConstruct(string ransomNote, string magazine)
+            {
+                int[] array = new int[26];
+                foreach (char charecter in magazine)
+                {
+                    array[(int)charecter - 97]++;
+                }
+
+                foreach (char charecter in ransomNote)
+                {
+                    if (array[(int)charecter - 97] == 0)
+                    {
+                        return false;
+                    }
+
+                    array[(int)charecter - 97]--;
+                }
+
+                return true;
+            }
+        }
     }
 }
 
