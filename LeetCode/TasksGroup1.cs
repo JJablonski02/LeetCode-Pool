@@ -150,6 +150,131 @@ namespace LeetCode
                 return true;
             }
         }
+
+        /*Given a string s, find the length of the longest 
+            substring
+             without repeating characters.
+
+ 
+
+        Example 1:
+
+        Input: s = "abcabcbb"
+        Output: 3
+        Explanation: The answer is "abc", with the length of 3.
+        Example 2:
+
+        Input: s = "bbbbb"
+        Output: 1
+        Explanation: The answer is "b", with the length of 1.
+        Example 3:
+
+        Input: s = "pwwkew"
+        Output: 3
+        Explanation: The answer is "wke", with the length of 3.
+        Notice that the answer must be a substring, "pwke" is a subsequence and not a substring.
+ 
+
+        Constraints:
+
+        0 <= s.length <= 5 * 104
+        s consists of English letters, digits, symbols and spaces.
+         */
+
+        public class Solution6
+        {
+            public int LengthOfLongestSubstring(string s)
+            {
+                int[] dict = new int[256];
+                Array.Fill(dict, -1);
+                int maxLen = 0, start = -1;
+                for (int i = 0; i < s.Length; i++)
+                {
+                    start = Math.Max(start, dict[s[i]]);
+                    maxLen = Math.Max(maxLen, i - start);
+                    dict[s[i]] = i;
+                }
+                return maxLen;
+            }
+        }
+
+        /*
+         Given a string s containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.
+
+            An input string is valid if:
+
+            Open brackets must be closed by the same type of brackets.
+            Open brackets must be closed in the correct order.
+            Every close bracket has a corresponding open bracket of the same type.
+ 
+
+            Example 1:
+
+            Input: s = "()"
+            Output: true
+            Example 2:
+
+            Input: s = "()[]{}"
+            Output: true
+            Example 3:
+
+            Input: s = "(]"
+            Output: false
+ 
+
+            Constraints:
+
+            1 <= s.length <= 104
+            s consists of parentheses only '()[]{}'.
+            */
+
+        public class Solution7
+        {
+            public bool IsValid(string s)
+            {
+                while (s.Contains("()") || s.Contains("[]") || s.Contains("{}"))
+                {
+                    s = s.Replace("()", "").Replace("[]", "").Replace("{}", "");
+                }
+                return s.Length == 0;
+
+            }
+        }
+
+        public class Solution8
+        {
+            public bool IsValid(string s)
+            {
+                Dictionary<char, char> bracketsMap = new Dictionary<char, char>
+                {
+                    {'{',  '}'},
+                    {'(',  ')'},
+                    {'[',  ']'},
+                };
+                Stack<char> openBrackets = new Stack<char>();
+
+                foreach (char bracket in s)
+                {
+                    if (bracketsMap.ContainsKey(bracket))
+                    {
+                        openBrackets.Push(bracket);
+                    }
+                    else
+                    {
+                        if (openBrackets.Count == 0)
+                        {
+                            return false;
+                        }
+                        if (bracketsMap[openBrackets.Pop()] == bracket)
+                        {
+                            continue;
+                        };
+                        return false;
+                    }
+                }
+                return openBrackets.Count == 0;
+            }
+        }
     }
 }
 
