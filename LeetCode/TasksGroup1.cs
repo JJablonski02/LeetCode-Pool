@@ -296,7 +296,6 @@ namespace LeetCode
                         maxProfit = profit;
                     }
                 }
-
                 return maxProfit;
             }
         }
