@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Runtime.Intrinsics.X86;
+using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Office.Interop.Excel;
 
 namespace LeetCode
 {
@@ -275,7 +277,7 @@ namespace LeetCode
                 return openBrackets.Count == 0;
             }
         }
-
+        
         public class Solution9
         {
             public int MaxProfit(int[] prices)
@@ -298,6 +300,18 @@ namespace LeetCode
                 }
 
                 return maxProfit;
+            }
+        }
+
+        public class Solution10
+        {
+            public bool isPalindrome(string input)
+            {
+                char[] chars = input.ToString().ToCharArray();
+
+                Array.Reverse(chars);
+
+                return input == new string(chars);
             }
         }
     }
